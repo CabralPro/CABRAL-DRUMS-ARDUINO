@@ -1,0 +1,1 @@
+void loopTeste(int pin);

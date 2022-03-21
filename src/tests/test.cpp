@@ -1,6 +1,6 @@
 /**
  * @file test.cpp
- * @author your name (you@domain.com)
+ * @author Arthur Cabral Lemos (cabraltec02@gmail.com)
  * @brief 
  * @version 0.1
  * @date 2022-03-18

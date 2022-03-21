@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Arduino Cabral Drums
+GenericName=Arduino Cabral Drums
+Path=/usr/share/cabral-drums-arduino
+Exec=code .
+Icon=/usr/share/cabral-drums-arduino/src/assets/images/arduino-icon.png
+Encoding=UTF-8
+Terminal=false
+Type=Application
+

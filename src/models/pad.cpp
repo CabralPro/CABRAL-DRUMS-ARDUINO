@@ -31,8 +31,14 @@ struct Pad
 	void play()
 	{
 		this->volumeBeat = map(this->lastBeat, 0, this->maxRangeVibration, 0, 127);
-		Serial.print(String(this->pinAnalog) + "-" + this->volumeBeat + "/");
-		// Serial.println(String(this->pinAnalog) + "-" + String(this->lastBeat));
+		auto separator = "-0";
+
+		if(this->lastBeat < 100)
+			separator = "-00";
+		else if(this->lastBeat > 999)
+			separator = "-";
+		
+		Serial.println( String(this->pinAnalog) + separator + String(this->lastBeat) );
 	}
 
 	void clearPad()

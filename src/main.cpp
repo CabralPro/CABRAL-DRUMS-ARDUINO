@@ -16,13 +16,13 @@
 
 /* ======================================= PADS CONFIG ======================================= */
 
-Pad pads[8] = {
-	/*     CHIMBAL      */ {/*pinAnalog*/ 0, /*minVibration*/ 30, /*volumeControl*/ 350},
+Pad pads[] = {
+	/*     CHIMBAL      */ {/*pinAnalog*/ 0, /*minVibration*/ 30, /*volumeControl*/ 550},
 	/*      BUMBO       */ {/*pinAnalog*/ 1, /*minVibration*/ 30, /*volumeControl*/ 150},
-	/*      CAIXA       */ {/*pinAnalog*/ 2, /*minVibration*/ 30, /*volumeControl*/ 350},
+	/*      CAIXA       */ {/*pinAnalog*/ 2, /*minVibration*/ 30, /*volumeControl*/ 550},
 	/*       TOM        */ {/*pinAnalog*/ 3, /*minVibration*/ 50, /*volumeControl*/ 350},
 	/*      TOM 2       */ {/*pinAnalog*/ 4, /*minVibration*/ 50, /*volumeControl*/ 350},
-	/*      SURDO       */ {/*pinAnalog*/ 5, /*minVibration*/ 30, /*volumeControl*/ 350},
+	/*      SURDO       */ {/*pinAnalog*/ 5, /*minVibration*/ 50, /*volumeControl*/ 350},
 	/*  PRATO (ATAQUE)  */ {/*pinAnalog*/ 6, /*minVibration*/ 50, /*volumeControl*/ 350},
 	/* PRATO (CONDUÇÃO) */ {/*pinAnalog*/ 7, /*minVibration*/ 50, /*volumeControl*/ 350},
 };
@@ -44,7 +44,7 @@ const int MIN_RANGE_FAST_BEAT = 10;
 
 void setup()
 {
-	const unsigned long SPEED_SERIAL = 115200;
+	const unsigned long SPEED_SERIAL = 460800;
 	Serial.begin(SPEED_SERIAL);
 }
 

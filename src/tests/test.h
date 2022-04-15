@@ -9,4 +9,4 @@
  * 
  */
 
-void loopTeste(int pin);
+void loopTeste(int numberPads);

@@ -13,39 +13,35 @@
 
 struct Pad
 {
-	int minVibration,
-			pinAnalog,
-			maxRangeVibration,
-			lastBeatTime = 0,
-			lastBeat = 0,
-			lastReady = 0,
-			countCatchInterval = 0,
-			countVibrationStopInterval = 0,
-			volumeBeat = 0;
+	int pinAnalog,
+		minVibration,
+		beat = 0,
+		countCatchInterval = 0;
 
-	Pad(int _pinAnalog, int _minVibration, int _maxRangeVibration = 800)
-			: minVibration(_minVibration),
-				maxRangeVibration(_maxRangeVibration),
-				pinAnalog(_pinAnalog){};
+	float volumeControl = 1.0;
+
+	Pad(int _pinAnalog, int _minVibration, float _volumeControl)
+		: minVibration(_minVibration),
+		  volumeControl(_volumeControl),
+		  pinAnalog(_pinAnalog){};
 
 	void play()
 	{
-		this->volumeBeat = map(this->lastBeat, 0, this->maxRangeVibration, 0, 127);
-		auto separator = "-0";
+		this->beat = this->beat * this->volumeControl;
+		auto separator = "-";
 
-		if(this->lastBeat < 100)
-			separator = "-00";
-		else if(this->lastBeat > 999)
-			separator = "-";
-		
-		Serial.println( String(this->pinAnalog) + separator + String(this->lastBeat) );
+		if (this->beat < 100)
+			separator = "-0";
+		else if (this->beat > 128)
+			this->beat = 128;
+
+		Serial.print(String(this->pinAnalog) + separator + String(this->beat));
+		// Serial.println( String(this->pinAnalog) + separator + String(this->beat));
 	}
 
 	void clearPad()
 	{
 		this->countCatchInterval = 0;
-		this->countVibrationStopInterval = 0;
-		this->lastBeat = 0;
-		this->lastReady = 0;
+		this->beat = 0;
 	}
 };

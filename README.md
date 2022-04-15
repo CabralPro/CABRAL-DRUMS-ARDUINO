@@ -19,6 +19,6 @@ mas pode ser facilmente modificado para funcionar com outros sistemas.
 
 # Informações adicionais
 
-- Caso ocorra erro de permissão ao fazer o upload do codigo no arduino execute o seguinte comando abaixo no terminal e tente novamente
+- Caso ocorra erro de permissão ao fazer o upload do codigo no arduino execute o comando abaixo no terminal e tente novamente
 	
 		sudo chmod 777 /dev/ttyACM0

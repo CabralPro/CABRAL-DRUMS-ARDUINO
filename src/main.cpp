@@ -11,32 +11,29 @@
 
 #include <Arduino.h>
 #include "./models/pad.cpp"
-
-
+#include "./tests/test.h"
 
 /* ======================================= PADS CONFIG ======================================= */
 
 Pad pads[] = {
-	/*     CHIMBAL      */ {/*pinAnalog*/ 0, /*minVibration*/ 30, /*volumeControl*/ 550},
-	/*      BUMBO       */ {/*pinAnalog*/ 1, /*minVibration*/ 30, /*volumeControl*/ 150},
-	/*      CAIXA       */ {/*pinAnalog*/ 2, /*minVibration*/ 30, /*volumeControl*/ 550},
-	/*       TOM        */ {/*pinAnalog*/ 3, /*minVibration*/ 50, /*volumeControl*/ 350},
-	/*      TOM 2       */ {/*pinAnalog*/ 4, /*minVibration*/ 50, /*volumeControl*/ 350},
-	/*      SURDO       */ {/*pinAnalog*/ 5, /*minVibration*/ 50, /*volumeControl*/ 350},
-	/*  PRATO (ATAQUE)  */ {/*pinAnalog*/ 6, /*minVibration*/ 50, /*volumeControl*/ 350},
-	/* PRATO (CONDUÇÃO) */ {/*pinAnalog*/ 7, /*minVibration*/ 50, /*volumeControl*/ 350},
+	/*     CHIMBAL      */ {/*pinAnalog*/ 0, /*minVibration*/ 10, /*volumeControl*/ 1.5},
+	/*      BUMBO       */ {/*pinAnalog*/ 1, /*minVibration*/ 20, /*volumeControl*/ 3.0},
+	/*      CAIXA       */ {/*pinAnalog*/ 2, /*minVibration*/ 10, /*volumeControl*/ 1.8},
+	/*       TOM        */ {/*pinAnalog*/ 3, /*minVibration*/ 20, /*volumeControl*/ 1.8},
+	/*      TOM 2       */ {/*pinAnalog*/ 4, /*minVibration*/ 20, /*volumeControl*/ 1.8},
+	/*      SURDO       */ {/*pinAnalog*/ 5, /*minVibration*/ 10, /*volumeControl*/ 1.8},
+	/*  PRATO (ATAQUE)  */ {/*pinAnalog*/ 6, /*minVibration*/ 20, /*volumeControl*/ 1.5},
+	/* PRATO (CONDUÇÃO) */ {/*pinAnalog*/ 7, /*minVibration*/ 20, /*volumeControl*/ 1.5},
 };
 
 /* ======================================= PADS CONFIG ======================================= */
 
 
 
-
 /* ======================================= GERAL CONFIG ====================================== */
 
-const int CAPTURE_INTERVAL_BEAT = 10;
-const int VIBRATION_STOP_INTERVAL = 5;
-const int MIN_RANGE_FAST_BEAT = 10;
+const int CAPTURE_INTERVAL_BEAT = 2;
+const unsigned long SPEED_SERIAL = 460800;
 
 /* ======================================= GERAL CONFIG ====================================== */
 
@@ -44,7 +41,6 @@ const int MIN_RANGE_FAST_BEAT = 10;
 
 void setup()
 {
-	const unsigned long SPEED_SERIAL = 460800;
 	Serial.begin(SPEED_SERIAL);
 }
 
@@ -53,7 +49,6 @@ const int NUMBER_PADS = sizeof(pads) / sizeof(pads[0]);
 
 void loopMain()
 {
-
 	for (int i = 0; i < NUMBER_PADS; i++)
 	{
 		reader = analogRead(i);
@@ -61,34 +56,16 @@ void loopMain()
 		if (reader > pads[i].minVibration)
 		{
 			pads[i].countCatchInterval++;
-			pads[i].countVibrationStopInterval = 0;
 
-			if (reader > pads[i].lastBeat)
-				pads[i].lastBeat = reader;
-
-			// CAPTURA BATIDAS ANTES DO TERMINO DA VIBRAÇÃO DA BATIDA ANTERIOR
-			if (pads[i].countCatchInterval > CAPTURE_INTERVAL_BEAT && reader > (pads[i].lastReady + MIN_RANGE_FAST_BEAT))
-			{
-				pads[i].countCatchInterval = 0;
-				pads[i].lastBeat = reader;
-			}
+			if (reader > pads[i].beat)
+				pads[i].beat = reader;
 
 			if (pads[i].countCatchInterval == CAPTURE_INTERVAL_BEAT)
 				pads[i].play();
-
-			pads[i].lastReady = reader;
 		}
 		else if (pads[i].countCatchInterval > 0)
 		{
-			pads[i].countVibrationStopInterval++;
-
-			if (pads[i].countVibrationStopInterval == VIBRATION_STOP_INTERVAL)
-			{
-				if (pads[i].countCatchInterval < CAPTURE_INTERVAL_BEAT)
-					pads[i].play();
-
-				pads[i].clearPad();
-			}
+			pads[i].clearPad();
 		}
 	}
 }
@@ -96,4 +73,5 @@ void loopMain()
 void loop()
 {
 	loopMain();
+	//loopTeste(NUMBER_PADS);
 }

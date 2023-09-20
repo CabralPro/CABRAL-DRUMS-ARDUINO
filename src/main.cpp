@@ -16,14 +16,14 @@
 /* ======================================= PADS CONFIG ======================================= */
 
 Pad pads[] = {
-	/*     CHIMBAL      */ {/*pinAnalog*/ 0, /*minVibration*/ 10, /*volumeControl*/ 1.5},
-	/*      BUMBO       */ {/*pinAnalog*/ 1, /*minVibration*/ 20, /*volumeControl*/ 3.0},
-	/*      CAIXA       */ {/*pinAnalog*/ 2, /*minVibration*/ 10, /*volumeControl*/ 1.8},
-	/*       TOM        */ {/*pinAnalog*/ 3, /*minVibration*/ 20, /*volumeControl*/ 1.8},
-	/*      TOM 2       */ {/*pinAnalog*/ 4, /*minVibration*/ 20, /*volumeControl*/ 1.8},
-	/*      SURDO       */ {/*pinAnalog*/ 5, /*minVibration*/ 10, /*volumeControl*/ 1.8},
-	/*  PRATO (ATAQUE)  */ {/*pinAnalog*/ 6, /*minVibration*/ 20, /*volumeControl*/ 1.5},
-	/* PRATO (CONDUÇÃO) */ {/*pinAnalog*/ 7, /*minVibration*/ 20, /*volumeControl*/ 1.5},
+	/*     CHIMBAL      */ {/*pinAnalog*/ 0, /*minVibration*/ 10, /*volumeControl*/ 0.5},
+	/*      BUMBO       */ {/*pinAnalog*/ 1, /*minVibration*/ 20, /*volumeControl*/ 1.0},
+	/*      CAIXA       */ {/*pinAnalog*/ 2, /*minVibration*/ 10, /*volumeControl*/ 0.5},
+	/*       TOM        */ {/*pinAnalog*/ 3, /*minVibration*/ 20, /*volumeControl*/ 0.5},
+	/*      TOM 2       */ {/*pinAnalog*/ 4, /*minVibration*/ 20, /*volumeControl*/ 0.5},
+	/*      SURDO       */ {/*pinAnalog*/ 5, /*minVibration*/ 10, /*volumeControl*/ 0.5},
+	/*  PRATO (ATAQUE)  */ {/*pinAnalog*/ 6, /*minVibration*/ 20, /*volumeControl*/ 0.5},
+	/* PRATO (CONDUCAO) */ {/*pinAnalog*/ 7, /*minVibration*/ 20, /*volumeControl*/ 0.5},
 };
 
 /* ======================================= PADS CONFIG ======================================= */
@@ -73,5 +73,4 @@ void loopMain()
 void loop()
 {
 	loopMain();
-	//loopTeste(NUMBER_PADS);
 }

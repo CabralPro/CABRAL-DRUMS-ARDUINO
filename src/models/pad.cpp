@@ -20,6 +20,8 @@ struct Pad
 
 	float volumeControl = 1.0;
 
+	char buffer[6];
+
 	Pad(int _pinAnalog, int _minVibration, float _volumeControl)
 		: minVibration(_minVibration),
 		  volumeControl(_volumeControl),
@@ -27,16 +29,12 @@ struct Pad
 
 	void play()
 	{
-		this->beat = this->beat * this->volumeControl;
-		auto separator = "-";
+		this->beat = constrain(this->beat * this->volumeControl, 5, 128);
 
-		if (this->beat < 100)
-			separator = "-0";
-		else if (this->beat > 128)
-			this->beat = 128;
+		snprintf(this->buffer, sizeof(this->buffer), "%d-%03d", this->pinAnalog, this->beat);
+		//snprintf(this->buffer, sizeof(this->buffer) + 16, "!!! TESTE !!! %d-%03d\n", this->pinAnalog, this->beat);
 
-		Serial.print(String(this->pinAnalog) + separator + String(this->beat));
-		// Serial.println( String(this->pinAnalog) + separator + String(this->beat));
+ 		Serial.print(this->buffer);
 	}
 
 	void clearPad()
@@ -44,4 +42,5 @@ struct Pad
 		this->countCatchInterval = 0;
 		this->beat = 0;
 	}
+
 };

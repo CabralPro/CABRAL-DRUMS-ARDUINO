@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Arthur Cabral Lemos (cabraltec02@gmail.com)
  * @brief
- * @version 0.1
+ * @version 0.2
  * @date 2022-03-18
  *
  * @copyright Copyright (c) 2022

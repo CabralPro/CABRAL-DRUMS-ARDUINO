@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Arduino IDE Cabral Drums
+GenericName=Arduino IDE Cabral Drums
+Exec=arduino /usr/share/cabral-drums-arduino/arduino-ide/cabral-drums/cabral-drums.ino
+Icon=arduino
+Encoding=UTF-8
+Terminal=false
+Type=Application

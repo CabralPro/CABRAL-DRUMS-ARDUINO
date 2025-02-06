@@ -17,10 +17,40 @@ void setup() {
   }
 }
 
+
+const int bufferLenght = 7;
+
+
+// Função para enviar os dados com formato fixo: "DD-DDD\n"
+// Onde os dois primeiros dígitos (DD) são o número do pad (0 a 99)
+// e os três dígitos (DDD) são o valor (0 a 999)
+// Caso o valor seja maior que 999, ele é limitado a 999.
+void sendHit(uint8_t pad, uint16_t value) {
+  char buf[7];
+
+  // Converte o número do pad para dois dígitos
+  buf[0] = '0' + (pad / 10);  // dígito das dezenas
+  buf[1] = '0' + (pad % 10);  // dígito das unidades
+
+  // Caractere separador
+  buf[2] = '-';
+
+  // Converte o valor para três dígitos
+  buf[3] = '0' + (value / 100);         // dígito das centenas
+  buf[4] = '0' + ((value / 10) % 10);     // dígito das dezenas
+  buf[5] = '0' + (value % 10);            // dígito das unidades
+
+  // Quebra de linha
+  buf[6] = '\n';
+
+  // Envia os 7 caracteres via Serial
+  Serial.write(buf, 7);
+}
+
+
 void loop() {
   unsigned long currentTime = millis();
-  char buffer[10];
-
+  
   for (int i = 0; i < NUM_PADS; i++) {
     int piezoValue = analogRead(piezoPins[i]);
 
@@ -30,15 +60,8 @@ void loop() {
         hitDetected[i] = true;
         lastHitTime[i] = currentTime;
 
-        // play pad
-        itoa(i, buffer, 10);
-        int len = strlen(buffer);
-        buffer[len] = '-';
-        itoa(peakValue[i], buffer + len + 1, 10);
-        buffer[len + strlen(buffer + len + 1)] = '\n';
-        Serial.write(buffer, strlen(buffer));
-
-
+        // Envia o pad e o valor com a formatação "DD-DDD\n"
+        sendHit(i, peakValue[i]);
       }
     } else {
       if (hitDetected[i] && (currentTime - lastHitTime[i] > peakDetectionWindow)) {
@@ -48,3 +71,4 @@ void loop() {
     }
   }
 }
+
